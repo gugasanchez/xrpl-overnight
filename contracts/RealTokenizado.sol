@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity 0.8.18;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC20/ERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/access/Ownable.sol";
 
 contract RealTokenizado is ERC20, ERC20Burnable, Ownable {
 
     mapping(address => bool) public privilegedAccounts; //Servicos gov e bancos;
 
-    constructor() ERC20("RealTokenizado", "BRLt") Ownable(msg.sender) {
+    constructor() ERC20("RealTokenizado", "BRLt") Ownable(){
         privilegedAccounts[msg.sender] = true;
     }
 

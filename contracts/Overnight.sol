@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity 0.8.18;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/access/Ownable.sol";
 import "./math.sol";
 
 interface ITPFt {
@@ -67,7 +67,7 @@ contract Overnight is Ownable, DSMath{
 
     liquidityRequest[] public liquidityRequests;
 
-    constructor(address _BRLtAddress) Ownable(msg.sender) {
+    constructor(address _BRLtAddress){
         BRLtAddress = _BRLtAddress;
         privilegedAccounts[msg.sender] = true;
         privilegedAccounts[address(this)] = true;

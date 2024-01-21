@@ -1,12 +1,12 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity 0.8.18;
 
 // Useful for debugging. Remove when deploying to a live network.
 import "hardhat/console.sol";
 
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/access/Ownable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC20/IERC20.sol";
 import "./math.sol";
 
 
@@ -58,7 +58,7 @@ contract TFPt is ERC20Burnable, Ownable, DSMath {
     uint256 _interestRate,
     string memory _assetType,
     address _paymentToken
-  ) ERC20(_name, _symbol) Ownable(msg.sender) {
+  ) ERC20(_name, _symbol) Ownable() {
 
     maxAmount = _maxAmount;
     initialPrice = _initialPrice;
