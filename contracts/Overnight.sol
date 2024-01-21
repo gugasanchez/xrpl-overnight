@@ -88,9 +88,8 @@ contract Overnight is Ownable, DSMath{
 
     //Passar apenas a parte depois das 3 casas decimais
     //43739 = 1,00043739
-    function setInterestRateDaily (uint256 _newInterestRateDaily) public returns (bool){
+    function setInterestRateDaily (uint256 _newInterestRateDaily) public onlyPrivileged returns (bool){
         interestRateDaily = _newInterestRateDaily;
-
         return true;
     }
 
@@ -98,7 +97,7 @@ function createLiquidityRequest(
     string memory _institution,
     uint256 _totalAmount,
     address _collateralAsset
-) public returns(bool) {
+) public onlyPrivileged returns(bool) {
     // Criar uma nova instância de liquidityRequest diretamente no storage
     liquidityRequest storage newRequest = liquidityRequests.push();
 
@@ -117,7 +116,7 @@ function createLiquidityRequest(
     return true;
 }
 
-    function provideLiquidity(uint256 _liquidityRequestIndex, uint256 _provideAmount) public returns (bool) {
+    function provideLiquidity(uint256 _liquidityRequestIndex, uint256 _provideAmount) public onlyPrivileged returns (bool) {
         require(_liquidityRequestIndex < liquidityRequests.length, "Request index out of bounds");
         require(_provideAmount <= (liquidityRequests[_liquidityRequestIndex].totalAmount - liquidityRequests[_liquidityRequestIndex].raisedAmount), "This value exceeds the value to be raised");
 
@@ -146,7 +145,7 @@ function payCreditors(uint256 _liquidityRequestIndex) public onlyPrivileged retu
         uint256 amount = request.liquidityProviders[provider];
 
         if (amount > 0) {
-            uint256 realAmount = (amount * 10 ** 18)/getDailyCompoundedTokenPrice();
+            uint256 realAmount = (amount * getDailyCompoundedTokenPrice())/(10**18);
 
             privilegedTransferReal(msg.sender, provider, realAmount);
             //Resetar o montante para evitar re-pagamentos
@@ -160,13 +159,14 @@ function payCreditors(uint256 _liquidityRequestIndex) public onlyPrivileged retu
     return true;
     }
 
-function defaultPayment(uint256 _liquidityRequestIndex) public returns (bool) {
+function defaultPayment(uint256 _liquidityRequestIndex) public onlyPrivileged returns (bool) {
     require(_liquidityRequestIndex < liquidityRequests.length, "Request index out of bounds");
     liquidityRequest storage request = liquidityRequests[_liquidityRequestIndex];
+    require(request.status == Status.Open, "Status closed");
 
     // Verificar se já passaram 24 horas desde a requestDate
     //require(block.timestamp >= (request.requestDate + 24 hours), "Cannot default before 24 hours");
-    require(block.timestamp >= (request.requestDate + 120), "Cannot default before 24 hours");
+    require(block.timestamp >= (request.requestDate + 86400), "Cannot default before 24 hours");
 
 
     uint256 amountProvided = request.liquidityProviders[msg.sender];
@@ -196,7 +196,7 @@ function defaultPayment(uint256 _liquidityRequestIndex) public returns (bool) {
     ITPFt(_TPFtAddress).privilegedTransfer(_from, _to, _amount);
   }
 
-      function getDailyCompoundedTokenPrice() public view returns (uint256) {
+    function getDailyCompoundedTokenPrice() public view returns (uint256) {
         uint256 ONE_DAY_IN_SECONDS = 24 * 60 * 60;
         uint256 price = WAD; // 1 * 10 ** 18
 
