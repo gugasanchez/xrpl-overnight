@@ -7,7 +7,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contr
 
 contract RealTokenizado is ERC20, ERC20Burnable, Ownable {
 
-    mapping(address => bool) public privilegedAccounts; //Servicos gov e bancos;
+    mapping(address => bool) public privilegedAccounts; //Financial institutions and banks;
 
     constructor() ERC20("RealTokenizado", "BRLt") Ownable(){
         privilegedAccounts[msg.sender] = true;
@@ -17,33 +17,35 @@ contract RealTokenizado is ERC20, ERC20Burnable, Ownable {
         return 2;
     }
 
-    //Modificador para restringir o acesso somente a contas privilegiadas
+    // Modifier to restrict access only to privileged accounts
     modifier onlyPrivileged() {
         require(privilegedAccounts[msg.sender], "Acesso negado: conta nao privilegiada");
         _;
     }
 
-    // Função para adicionar um endereço à lista de contas privilegiadas
+    // Function to add an address to the list of privileged accounts
     function addPrivilegedAccount(address account) public onlyOwner {
         privilegedAccounts[account] = true;
     }
 
-    //Função para remover um endereço da lista de contas privilegiadas
+    // Function to remove an address from the list of privileged accounts
     function removePrivilegedAccount(address account) public onlyOwner {
         privilegedAccounts[account] = false;
     }
 
-    // Função para transferir tokens de qualquer conta sem necessidade de aprovação
+    // Function to transfer tokens from any account without the need for approval
     function privilegedTransfer(address from, address to, uint256 amount) public onlyPrivileged returns(bool) {
         _transfer(from, to, amount);
         return true;
     }
 
+    // Function to mint tokens for a user
     function myntUser(address user, uint256 amount) public onlyPrivileged returns (bool){
         _mint(user, amount);
         return true;
     }
 
+    // Function to burn tokens from a user
     function burnUser(address user, uint256 amount) public onlyPrivileged returns (bool){
         _burn(user, amount);
         return true;

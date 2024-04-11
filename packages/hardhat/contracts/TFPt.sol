@@ -29,10 +29,10 @@ interface IBRLt {
 
 contract TFPt is ERC20Burnable, Ownable, DSMath {
 
-  mapping(address => bool) public privilegedAccounts; //Contas privilegiadas (servicos e talvez bancos)
+  mapping(address => bool) public privilegedAccounts; // Privileged accounts (services and possibly banks)
 
   uint256 public immutable deployTimestamp;
-  address public paymentToken; //Real Tokenizado
+  address public paymentToken; // Tokenized Real
 
   uint256 public immutable maxAmount;
   uint256 public immutable dueDate;
@@ -83,21 +83,21 @@ contract TFPt is ERC20Burnable, Ownable, DSMath {
     _;
   }
 
-  // Função para adicionar um endereço à lista de contas privilegiadas
+  // Function to add an address to the list of privileged accounts
   function addPrivilegedAccount(address account) public onlyOwner {
       privilegedAccounts[account] = true;
   }
 
-  // Função para remover um endereço da lista de contas privilegiadas
+  // Function to remove an address from the list of privileged accounts
   function removePrivilegedAccount(address account) public onlyOwner {
       privilegedAccounts[account] = false;
   }
 
-    // Função para transferir tokens de qualquer conta sem necessidade de aprovação
-    function privilegedTransfer(address from, address to, uint256 amount) public onlyPrivileged returns(bool) {
-        _transfer(from, to, amount);
-        return true;
-    }
+  // Function to transfer tokens from any account without requiring approval
+  function privilegedTransfer(address from, address to, uint256 amount) public onlyPrivileged returns(bool) {
+      _transfer(from, to, amount);
+      return true;
+  }
 
   function privilegedTransferReal(address _from, address _to, uint256 _amount) public onlyPrivileged {
     IBRLt(paymentToken).privilegedTransfer(_from, _to, _amount);

@@ -30,7 +30,7 @@ contract Overnight is Ownable, DSMath {
     }
 
     address public BRLtAddress;
-    mapping(address => bool) public privilegedAccounts; // Serviços governamentais e bancos;
+    mapping(address => bool) public privilegedAccounts; // Financial institutions and banks;
     mapping(address => uint256) liquidityProvidersScore; 
     uint256 interestRateDaily;
 
@@ -42,8 +42,8 @@ contract Overnight is Ownable, DSMath {
         address collateralAsset;
         uint256 collateralAmount;
         uint256 requestDate;
-        address[] liquidityProviderAddresses; // Array para armazenar os endereços dos provedores
-        mapping(address => uint256) liquidityProviders; // Mapping de provedores de liquidez
+        address[] liquidityProviderAddresses; // Providers addresses array
+        mapping(address => uint256) liquidityProviders; // Liquidity Providers mapping
         Status status;
     }
 
@@ -61,7 +61,7 @@ contract Overnight is Ownable, DSMath {
     }
 
     modifier onlyPrivileged() {
-        require(privilegedAccounts[msg.sender], "Acesso negado: conta nao privilegiada");
+        require(privilegedAccounts[msg.sender], "Access Denied: account is not privileged");
         _;
     }
 
