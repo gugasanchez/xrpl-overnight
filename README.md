@@ -1,4 +1,4 @@
-# 🏛 XRP Overnight
+# 🏛 XRPL Overnight
 
 In most countries around the world, central banks require minimum reserves from banks and financial institutions. The reason for this is simple:
 
