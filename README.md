@@ -46,4 +46,4 @@ Hence, we offer Smart Contracts and APIs for banks, which will deliver a **simpl
 [Link to the contracts' documentation](./docs/smartContracts.md)
 
 ## 🖥 Application Deploy
-[Link to our application](https://xrpl-overnight.vercel.app/)
+[Link to our application](https://xrp-overnight.vercel.app/)
