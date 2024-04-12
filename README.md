@@ -58,6 +58,16 @@ Despite the robust technology provided by Overnight, we believe that mass adopti
 
 Hence, we offer Smart Contracts and APIs for banks, which will deliver a **simple journey** to obtain credit and manage these operations.
 
+## 🖱 How to run the project
+Please use the following commands to clone our repo and run our front-end locally. So you can test our application.
+
+```
+https://github.com/gugasanchez/xrpl-overnight.git
+cd xrpl-overnight
+
+yarn install
+yarn start
+```
 ## 📼 Presentation Video
 [Youtube Link](https://www.youtube.com/watch?v=csabs5zONOE)
 
