@@ -8,31 +8,14 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contr
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/access/Ownable.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC20/IERC20.sol";
 import "./math.sol";
+import "./IBRLt.sol";
 
-
-interface IBRLt {
-    function balanceOf(address) external returns (uint);
-
-    function name() external returns (string memory);
-
-    function symbol() external returns (string memory);
-
-    function decimals() external returns (uint);
-
-    function totalSupply() external returns (uint);
-
-    function transfer(address to, uint256 value) external returns (bool);
-    
-    function privilegedTransfer(address, address, uint) external returns (bool);
-}
-
-
-contract TFPt is ERC20Burnable, Ownable, DSMath {
+contract NTBt is ERC20Burnable, Ownable, DSMath {
 
   mapping(address => bool) public privilegedAccounts; // Privileged accounts (services and possibly banks)
 
   uint256 public immutable deployTimestamp;
-  address public paymentToken; // Tokenized Real
+  address public paymentToken; // Brazilian CBDC
 
   uint256 public immutable maxAmount;
   uint256 public immutable dueDate;
@@ -74,12 +57,12 @@ contract TFPt is ERC20Burnable, Ownable, DSMath {
 
   }
 
-    function decimals() public view virtual override returns (uint8) {
+  function decimals() public view virtual override returns (uint8) {
         return 2;
-    }
+  }
 
   modifier onlyPrivileged() {
-    require(privilegedAccounts[msg.sender], "Acesso negado: conta nao privilegiada");
+    require(privilegedAccounts[msg.sender], "Access denied: account is not privileged.");
     _;
   }
 
@@ -247,7 +230,7 @@ contract TFPt is ERC20Burnable, Ownable, DSMath {
 
 	function invest(address investor, uint256 investmentValue) public onlyPrivileged returns (bool) {
         
-        require(investmentValue >= minimumInvestment, "Invista o valor minimo");
+        require(investmentValue >= minimumInvestment, "Invest minimum amount.");
 
         require(IBRLt(paymentToken).privilegedTransfer(investor, address(this), investmentValue), "Interest Token transaction failed.");
         
@@ -257,7 +240,7 @@ contract TFPt is ERC20Burnable, Ownable, DSMath {
         uint256 totalAssetAmount = (((assetAmount * WAD) + (assetRest * WAD) / tokenPrice) / (WAD / 10 ** decimals()))/100;
 
         uint256 newSupply = totalSupply() + totalAssetAmount;
-        require(newSupply < maxAmount, "Foi atingido o valor maximo da emissao desse titulo");
+        require(newSupply < maxAmount, "Max amount!");
         _mint(investor, totalAssetAmount);
 
         if (ownershipTimestamp[investor] == 0) {
@@ -284,54 +267,4 @@ contract TFPt is ERC20Burnable, Ownable, DSMath {
 
     return true;
   }
-
-    function timestampToDate(uint timestamp) public pure returns (string memory) {
-        uint year;
-        uint month;
-        uint day;
-        uint z;
-        (year, month, day, z) = _daysToDate(timestamp / 86400);
-
-        return string(abi.encodePacked(uintToString(day), "/", uintToString(month), "/", uintToString(year)));
-    }
-
-    function _daysToDate(uint _days) internal pure returns (uint year, uint month, uint day, uint z) {
-        uint L = _days + 68569 + 2440588;
-        z = L;
-        uint N = 4 * L / 146097;
-        L = L - (146097 * N + 3) / 4;
-        uint I = 4000 * (L + 1) / 1461001;
-        L = L - 1461 * I / 4 + 31;
-        uint J = 80 * L / 2447;
-        uint K = L - 2447 * J / 80;
-        L = J / 11;
-        J = J + 2 - 12 * L;
-        I = 100 * (N - 49) + I + L;
-
-        year = I;
-        month = J;
-        day = K;
-    }
-
-    function uintToString(uint _i) internal pure returns (string memory _uintAsString) {
-        if (_i == 0) {
-            return "0";
-        }
-        uint j = _i;
-        uint len;
-        while (j != 0) {
-            len++;
-            j /= 10;
-        }
-        bytes memory bstr = new bytes(len);
-        uint k = len;
-        while (_i != 0) {
-            k = k-1;
-            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
-            bytes1 b1 = bytes1(temp);
-            bstr[k] = b1;
-            _i /= 10;
-        }
-        return string(bstr);
-    }
 }

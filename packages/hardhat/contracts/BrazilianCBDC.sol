@@ -5,11 +5,11 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contr
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/access/Ownable.sol";
 
-contract RealTokenizado is ERC20, ERC20Burnable, Ownable {
+contract BrazilianCBDC is ERC20, ERC20Burnable, Ownable {
 
     mapping(address => bool) public privilegedAccounts; //Financial institutions and banks;
 
-    constructor() ERC20("RealTokenizado", "BRLt") Ownable(){
+    constructor() ERC20("Brazilian CBDC", "BRLt") Ownable(){
         privilegedAccounts[msg.sender] = true;
     }
 
@@ -19,7 +19,7 @@ contract RealTokenizado is ERC20, ERC20Burnable, Ownable {
 
     // Modifier to restrict access only to privileged accounts
     modifier onlyPrivileged() {
-        require(privilegedAccounts[msg.sender], "Acesso negado: conta nao privilegiada");
+        require(privilegedAccounts[msg.sender], "Access denied: account is not privileged.");
         _;
     }
 
@@ -40,7 +40,7 @@ contract RealTokenizado is ERC20, ERC20Burnable, Ownable {
     }
 
     // Function to mint tokens for a user
-    function myntUser(address user, uint256 amount) public onlyPrivileged returns (bool){
+    function mintUser(address user, uint256 amount) public onlyPrivileged returns (bool){
         _mint(user, amount);
         return true;
     }

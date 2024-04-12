@@ -3,25 +3,8 @@ pragma solidity 0.8.18;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/access/Ownable.sol";
 import "./math.sol";
-
-interface ITPFt {
-    function balanceOf(address) external returns (uint);
-    function name() external returns (string memory);
-    function symbol() external returns (string memory);
-    function decimals() external returns (uint);
-    function totalSupply() external returns (uint);
-    function privilegedTransfer(address, address, uint) external returns (bool);
-    function getTokenPrice() external returns (uint256);
-}
-
-interface IBRLt {
-    function balanceOf(address) external returns (uint);
-    function name() external returns (string memory);
-    function symbol() external returns (string memory);
-    function decimals() external returns (uint);
-    function totalSupply() external returns (uint);
-    function privilegedTransfer(address, address, uint) external returns (bool);
-}
+import "./IBRLt.sol";
+import "./INTBt.sol";
 
 contract Overnight is Ownable, DSMath {
     struct LiquidityProvidedInfo {
@@ -90,7 +73,7 @@ contract Overnight is Ownable, DSMath {
         newRequest.totalAmount = _totalAmount;
         newRequest.raisedAmount = 0;
         newRequest.collateralAsset = _collateralAsset;
-        newRequest.collateralAmount = (_totalAmount * 10 ** 18) / (ITPFt(_collateralAsset).getTokenPrice());
+        newRequest.collateralAmount = (_totalAmount * 10 ** 18) / (INTBt(_collateralAsset).getTokenPrice());
         newRequest.requestDate = block.timestamp;
         newRequest.status = Status.Open;
 
@@ -139,7 +122,7 @@ contract Overnight is Ownable, DSMath {
                 uint256 realAmount = (amount * getDailyCompoundedTokenPrice())/(10**18);
 
                 privilegedTransferReal(msg.sender, provider, realAmount);
-                // Resetar o montante para evitar re-pagamentos
+                // Reset provider liquidity balance
                 request.liquidityProviders[provider] = 0;
             }
         }
@@ -166,7 +149,7 @@ contract Overnight is Ownable, DSMath {
         require(amountProvided > 0, "No liquidity provided by sender");
 
         // Calculate the proportion of collateral to be returned based on the provided amount
-        uint256 collateralToReturn = (amountProvided * 10 ** 18 / ITPFt(request.collateralAsset).getTokenPrice());
+        uint256 collateralToReturn = (amountProvided * 10 ** 18 / INTBt(request.collateralAsset).getTokenPrice());
 
         // Transfer the proportional collateral back to the sender
         privilegedTransferTPFt(request.collateralAsset, address(this), msg.sender, collateralToReturn);
@@ -186,7 +169,7 @@ contract Overnight is Ownable, DSMath {
     }
 
     function privilegedTransferTPFt(address _TPFtAddress, address _from, address _to, uint256 _amount) public onlyPrivileged {
-        ITPFt(_TPFtAddress).privilegedTransfer(_from, _to, _amount);
+        INTBt(_TPFtAddress).privilegedTransfer(_from, _to, _amount);
     }
 
     function getDailyCompoundedTokenPrice() public view returns (uint256) {

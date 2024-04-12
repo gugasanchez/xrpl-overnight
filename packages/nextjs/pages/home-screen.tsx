@@ -72,7 +72,7 @@ const HomeScreen: NextPage = () => {
       const provider = new ethers.providers.JsonRpcProvider("https://rpc-evm-sidechain.xrpl.org");
       const wallet = new ethers.Wallet(walletK, provider);
 
-      const contractAddress = "0xF6ab2D1f34031B564562c012F5809e3F7F28661B";
+      const contractAddress = "0xdFf6A59afCc51af70789ec3d28fFd91897D51707";
       const contractABI = OvernightJSON.abi;
 
       const contract = new ethers.Contract(contractAddress, contractABI, wallet);
@@ -86,7 +86,7 @@ const HomeScreen: NextPage = () => {
       const tx = await contract.createLiquidityRequest(
           newLoanData.institution,
           newLoanData.amount,
-          "0x84bAf7af378Ba73279fD92474e181324Fba31Ac7" // Substitua pelo endereço correto do ativo colateral
+          "0x6d9Ce41320eAba317Ae98382539487EE0993d6CE" // Substitua pelo endereço correto do ativo colateral
       );
 
       console.log("Transaction sent:", tx.hash);
@@ -122,12 +122,12 @@ const HomeScreen: NextPage = () => {
       const provider = new ethers.providers.JsonRpcProvider("https://rpc-evm-sidechain.xrpl.org");
       const wallet = new ethers.Wallet(walletK, provider);
   
-      const contractAddress = "0xF6ab2D1f34031B564562c012F5809e3F7F28661B";
+      const contractAddress = "0xdFf6A59afCc51af70789ec3d28fFd91897D51707";
       const contractABI = OvernightJSON.abi;
   
       const contract = new ethers.Contract(contractAddress, contractABI, wallet);
 
-      const tx = await contract.provideLiquidity("5", editFormData.amount);
+      const tx = await contract.provideLiquidity("0", editFormData.amount);
   
       console.log("Transaction sent:", tx.hash);
       await tx.wait();
