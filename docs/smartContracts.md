@@ -5,7 +5,8 @@ On this page, the smart contracts and their respective key functions for the sys
 Besides the functions that will be explained below, we also utilize the **math.sol** libraries and **OpenZeppelin smart contracts**.
 
 ### 1) Brazilian CBDC (BRLt.sol)
-Contract address on EVM Sidechain: 0x8e3FbC31c13deb9e2493C81415cADa565F1432b8
+Contract address on EVM Sidechain: [0x8e3FbC31c13deb9e2493C81415cADa565F1432b8](https://evm-sidechain.xrpl.org/address/0x8e3FbC31c13deb9e2493C81415cADa565F1432b8)
+
 
 A smart contract developed in the ERC-20 standard to simulate the Brazilian CBDC. In addition to the essential ERC-20 functions, the following features were also developed:
 
@@ -16,7 +17,7 @@ A smart contract developed in the ERC-20 standard to simulate the Brazilian CBDC
 **1.3) functions mintUser and burnUser:** a function developed for financial institutions and the Central Bank to have access to mint and burn tokens of their clients. For example, a user has R$1000 in Brazilian CBDC and wishes to withdraw this money in physical currency at the bank branch. The bank can then burn these tokens and make the payment in person to the customer.
 
 ### 2) National Treasury Bonds token (NTBt.sol)
-Contract address on EVM Sidechain: 0x6d9Ce41320eAba317Ae98382539487EE0993d6CE
+Contract address on EVM Sidechain: [0x6d9Ce41320eAba317Ae98382539487EE0993d6CE](https://evm-sidechain.xrpl.org/address/0x6d9Ce41320eAba317Ae98382539487EE0993d6CE)
 
 A smart contract for the tokenization of National Treasury bonds. Also developed with the ERC-20 standard, this contract presents greater complexity, and below are the main features:
 
@@ -33,7 +34,7 @@ A smart contract for the tokenization of National Treasury bonds. Also developed
 **2.6) function withdrawBacen:** a function used for the Central Bank to receive the Brazilian CBDC tokens from all investments made in that bond.
 
 ### 3) Overnight (Overnight.sol)
-Contract address on XRP EVM sidechain: 0xdFf6A59afCc51af70789ec3d28fFd91897D51707
+Contract address on XRP EVM sidechain: [0xdFf6A59afCc51af70789ec3d28fFd91897D51707](https://evm-sidechain.xrpl.org/address/0xdFf6A59afCc51af70789ec3d28fFd91897D51707)
 
 Overnight is the smart contract implementation of our collateralized credit mechanism with Brazilian CBDC. This contract not only serves for banks to obtain collateralized credit for overnight operations but also for liquidity providers to be paid the next day with the profitability of the 24-hour Selic Over rate; otherwise, the creditor has the right to redeem the operation's collateral.
 
