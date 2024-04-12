@@ -67,8 +67,10 @@ This project was developed by using Scaffold. Then, you can find the our main co
 
 ### 🤓 User Journey Flow Diagram
 
-![User Journey Flow Diagram]([URL](https://raw.githubusercontent.com/gugasanchez/xrpl-overnight/main/User-Journey-Flow-Diagram.png))
-
+<p float="left">
+  <img src="https://raw.githubusercontent.com/gugasanchez/xrpl-overnight/main/User-Journey-Flow-Diagram.png" width="150" />
+  <img src="https://github.com/gugasanchez/theprism/assets/62973287/6617f73f-f89b-4ef4-bc57-37dcb0234939" width="150" /> 
+</p>
 
 ### 🖱 How to run the project
 Please use the following commands to clone our repo and run our front-end locally. So you can test our application.
