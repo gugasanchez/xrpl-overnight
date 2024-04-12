@@ -65,6 +65,10 @@ This project was developed by using Scaffold. Then, you can find the our main co
 - **Front-end:** packages/nextjs
 - **Back-end:** backend
 
+### 🤓 User Journey Flow Diagram
+
+
+
 ### 🖱 How to run the project
 Please use the following commands to clone our repo and run our front-end locally. So you can test our application.
 
