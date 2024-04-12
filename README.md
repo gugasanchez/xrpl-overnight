@@ -68,6 +68,9 @@ This project was developed by using Scaffold. Then, you can find the our main co
 ### 🤓 User Journey Flow Diagram
   <img src="https://raw.githubusercontent.com/gugasanchez/xrpl-overnight/main/User-Journey-Flow-Diagram.png" width="1800" /> 
 
+⚠ This is just the user journey flow, which outlines the main functions of smart contracts called in this version of the MVP. To learn more about the smart contracts developed up to this version, [click here](./docs/smartContracts.md).
+
+⚠ **It's worth noting that many other features have already been mapped out to be developed over the next few months, such as Multisig, contract refactoring, interest rate oracles, adding other types of operations, automating processes with keepers, abstracted login, generating reports with relevant data for each user, integrating notifications, etc.**
 
 ### 🖱 How to run the project
 Please use the following commands to clone our repo and run our front-end locally. So you can test our application.
