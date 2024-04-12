@@ -2,6 +2,8 @@
 ## 👩‍💻 Smart Contracts Docs
 On this page, the smart contracts and their respective key functions for the system's operation will be documented. The following project involves not only the on-chain credit platform but also the tokenization of the BRL and NTBt (National Treasury Bonds token) securities.
 
+Besides the functions that will be explained below, we also utilize the **math.sol** libraries and **OpenZeppelin smart contracts**.
+
 ### 1) Brazilian CBDC (BRLt.sol)
 Contract address on EVM Sidechain: 0x8e3FbC31c13deb9e2493C81415cADa565F1432b8
 
