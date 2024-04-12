@@ -42,9 +42,8 @@ In our solution, we developed a system for these operations for the Brazilian ma
 
 - **Smart Contracts** for functional and complete tokenization of treasury bonds and the Brazilian Real, simulating Drex (Brazilian CBDC) solutions;
 - **Smart Contracts** for payments and credit operations with NTBt's on blockchain;
-- **Chainlink Functions** to access brazilian interest rate data (Selic) from Central Bank API;
-- **Chainlink Automation** to update NTBt token price according to interest rate from Central Bank API; (it runs daily)
-- ParticleAuth provides a better UX/UI by making easier crypto onboarding.
+- **Chainlink Functions** to access brazilian interest rate data (Selic) from Central Bank API (developed to V1 during Avalanche Hackathon. In this code, we have V0 developed to XRPL Hackathon.)
+- **Chainlink Automation** to daily update NTBt token price according to interest rate from Central Bank API; (developed to V1 during Avalanche Hackathon. In this code, we have V0 developed to XRPL Hackathon.)
 - **Backend** for storing relevant off-chain data.
 - API deployed and **[available](https://xrpl-api.vercel.app/overnight)** in the cloud.
 - Functional and integrated **frontend** for simulation and benchmarking with an extremely simple user experience;
