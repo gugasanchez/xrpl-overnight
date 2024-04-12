@@ -67,6 +67,7 @@ This project was developed by using Scaffold. Then, you can find the our main co
 
 ### 🤓 User Journey Flow Diagram
 
+![User Journey Flow Diagram]([URL](https://raw.githubusercontent.com/gugasanchez/xrpl-overnight/main/User-Journey-Flow-Diagram.png))
 
 
 ### 🖱 How to run the project
