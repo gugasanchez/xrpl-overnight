@@ -45,7 +45,7 @@ In our solution, we developed a system for these operations for the Brazilian ma
 - **Chainlink Functions** to access brazilian interest rate data (Selic) from Central Bank API (developed to V1 during Avalanche Hackathon. In this code, we have V0 developed to XRPL Hackathon.)
 - **Chainlink Automation** to daily update NTBt token price according to interest rate from Central Bank API; (developed to V1 during Avalanche Hackathon. In this code, we have V0 developed to XRPL Hackathon.)
 - **Backend** for storing relevant off-chain data.
-- API deployed and **[available](https://xrpl-api.vercel.app/overnight)** in the cloud.
+- API deployed and **[available](https://overnight-api.vercel.app/overnight)** in the cloud.
 - Functional and integrated **frontend** for simulation and benchmarking with an extremely simple user experience;
 
 ### 😌 Easy to use
