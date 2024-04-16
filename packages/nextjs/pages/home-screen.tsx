@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import Modal from "~~/components/Modal";
 import { loanData } from "~~/components/loanData";
 import { LoanData } from "~~/components/types";
-import { ethers } from 'ethers';
 import OvernightJSON from "~~/utils/Overnight.json";
-require('dotenv').config();
+
+require("dotenv").config();
 
 // Type definition for the inputValues state
 type InputValuesType = {
@@ -84,17 +85,17 @@ const HomeScreen: NextPage = () => {
       // }
 
       const tx = await contract.createLiquidityRequest(
-          newLoanData.institution,
-          newLoanData.amount,
-          "0x6d9Ce41320eAba317Ae98382539487EE0993d6CE" // Substitua pelo endereço correto do ativo colateral
+        newLoanData.institution,
+        newLoanData.amount,
+        "0x6d9Ce41320eAba317Ae98382539487EE0993d6CE", // Substitua pelo endereço correto do ativo colateral
       );
 
       console.log("Transaction sent:", tx.hash);
       await tx.wait();
       console.log("Transaction confirmed");
-  } catch (error) {
-      console.error("Erro ao enviar a transação:", error);
-  }
+    } catch (error) {
+      console.error("Error sending transaction:", error);
+    }
     console.log("Adding new loan:", newLoanData); // Check if this logs correctly
     const newLoan: LoanData = {
       ...newLoanData,
@@ -121,20 +122,20 @@ const HomeScreen: NextPage = () => {
       const walletK = "88857b999398ea72b26b9f5a00409fd5502964dc5e8c7bf5aca4e2ccecc61d84";
       const provider = new ethers.providers.JsonRpcProvider("https://rpc-evm-sidechain.xrpl.org");
       const wallet = new ethers.Wallet(walletK, provider);
-  
+
       const contractAddress = "0xdFf6A59afCc51af70789ec3d28fFd91897D51707";
       const contractABI = OvernightJSON.abi;
-  
+
       const contract = new ethers.Contract(contractAddress, contractABI, wallet);
 
       const tx = await contract.provideLiquidity("0", editFormData.amount);
-  
+
       console.log("Transaction sent:", tx.hash);
       await tx.wait();
       console.log("Transaction confirmed");
     } catch (error) {
       console.error("Erro ao enviar a transação:", error);
-    } 
+    }
 
     console.log("Submitting form for index:", index); // Log form submission
 
@@ -188,7 +189,7 @@ const HomeScreen: NextPage = () => {
         <div className="flex flex-col bg-base-100 px-5 py-5 text-center items-center w-[95%] rounded-xl">
           <div className="flex flex-row py-4 justify-between w-full px-10">
             <div className="flex flex-col items-start text-left">
-              <h1 className="text-2xl mb-0">Menu de operações overnight</h1>
+              <h1 className="text-2xl mb-0">Overnight operations menu</h1>
               <p className="text-l my-2 text-zinc-500"></p>
             </div>
 
@@ -197,7 +198,7 @@ const HomeScreen: NextPage = () => {
                 onClick={toggleModal}
                 className="bg-base-300 hover:bg-base-200 font-medium rounded-md text-sm px-10 py-2.5"
               >
-                Solicitar crédito
+                Ask for credit
               </button>
             </div>
           </div>
@@ -208,16 +209,16 @@ const HomeScreen: NextPage = () => {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                   <tr>
                     <th scope="col" className="px-6 py-3">
-                      Instituição
+                      Institution
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Quantia
+                      Amount
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Título em colateral
+                      Collateral
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Data/hora
+                      Date/hour
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Status
@@ -232,7 +233,7 @@ const HomeScreen: NextPage = () => {
                         onClick={() => handleRowClick(index)}
                       >
                         <td className="px-6 py-4">
-                          {banks.find(bank => bank.code === loan.institution)?.name || "Banco Desconhecido"}
+                          {banks.find(bank => bank.code === loan.institution)?.name || "Unknown bank"}
                         </td>
                         <td className="px-6 py-4">{formatCurrency(loan.amount)}</td>
                         <td className="px-6 py-4">{loan.title}</td>
@@ -250,7 +251,7 @@ const HomeScreen: NextPage = () => {
                                   <form onSubmit={e => handleSubmit(e, index)} className="space-y-2">
                                     <div>
                                       <label className="block text-sm font-medium text-left text-gray-700">
-                                        Banco credor
+                                        Creditor Institution
                                       </label>
                                       <select
                                         name="institution"
@@ -258,7 +259,7 @@ const HomeScreen: NextPage = () => {
                                         onChange={handleEditInputChange}
                                         className="mt-1 px-4 block w-full text-gray-500 h-8 rounded-md border-2 border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                       >
-                                        <option value="">Selecione seu banco</option>
+                                        <option value="">Select your Institution</option>
                                         {banks.map(bank => (
                                           <option key={bank.code} value={bank.code}>
                                             {bank.name}
@@ -268,7 +269,7 @@ const HomeScreen: NextPage = () => {
                                     </div>
                                     <div>
                                       <label className="block text-sm text-left font-medium text-gray-700">
-                                        Quantia (R$)
+                                        Amount (R$)
                                       </label>
                                       <input
                                         type="string"
@@ -278,7 +279,7 @@ const HomeScreen: NextPage = () => {
                                         className="mt-1 px-2 block w-full h-8 rounded-md border-2 border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                       />
                                       <span className="block mt-1 text-sm text-gray-600">
-                                        {formattedQuantia ? `Valor do empréstimo: ${formattedQuantia}` : ""}
+                                        {formattedQuantia ? `Loan amount: ${formattedQuantia}` : ""}
                                       </span>
                                     </div>
                                     <div>
@@ -286,7 +287,7 @@ const HomeScreen: NextPage = () => {
                                         type="submit"
                                         className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                       >
-                                        Confirmar
+                                        Confirm
                                       </button>
                                     </div>
                                   </form>

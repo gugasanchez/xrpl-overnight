@@ -15,7 +15,7 @@ const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT
 
 export const MetaHeader = ({
   title = "XRPL Overnight",
-  description = "Um projeto do grupo RGP",
+  description = "A project by Prisma Tech",
   image = "thumbnail.jpg",
   twitterCard = "summary_large_image",
   children,

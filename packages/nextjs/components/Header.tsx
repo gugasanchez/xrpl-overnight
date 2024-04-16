@@ -16,12 +16,12 @@ export const menuLinks: HeaderMenuLink[] = [
     icon: <Image src="/images/casa.png" alt="Home" width={18} height={18} />,
   },
   {
-    label: "Meu Dashboard",
+    label: "My Dashboard",
     href: "/charts",
     icon: <Image src="/images/grafico-simples.png" alt="Dashboard" width={18} height={18} />,
   },
   {
-    label: "Sair",
+    label: "Logout",
     href: "/",
     icon: <Image src="/images/sair-alt.png" alt="Sair" width={18} height={18} />,
   },
@@ -68,10 +68,10 @@ export const Header = () => {
           </div>
         </Link>
         <ul className="menu menu-vertical px-1 gap-2 flex-grow">
-          <HeaderMenuLinks exclude="Sair" only={undefined} />
+          <HeaderMenuLinks exclude="Logout" only={undefined} />
         </ul>
         <div className="mt-auto mb-4">
-          <HeaderMenuLinks only="Sair" exclude={undefined} />
+          <HeaderMenuLinks only="Logout" exclude={undefined} />
         </div>
       </div>
     </div>
