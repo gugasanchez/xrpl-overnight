@@ -8,13 +8,6 @@ import { loanData } from "~~/components/loanData";
 import { LoanData } from "~~/components/types";
 import OvernightJSON from "~~/utils/Overnight.json";
 
-require("dotenv").config();
-
-// Type definition for the inputValues state
-type InputValuesType = {
-  [key: string]: string;
-};
-
 // HomeScreen component: Main page for overnight operations
 const HomeScreen: NextPage = () => {
   const router = useRouter();
@@ -29,6 +22,8 @@ const HomeScreen: NextPage = () => {
   });
   const [formattedQuantia, setFormattedQuantia] = useState("");
   const [version, setVersion] = useState(0);
+
+  loanAmount;
 
   useEffect(() => {
     // Initialize the loans state with predefined data and handle router changes
@@ -139,15 +134,15 @@ const HomeScreen: NextPage = () => {
 
     console.log("Submitting form for index:", index); // Log form submission
 
-    let updatedLoans = [...loans];
-    let updatedLoan = { ...updatedLoans[index] };
+    const updatedLoans = [...loans];
+    const updatedLoan = { ...updatedLoans[index] };
 
     console.log("Original loan data:", updatedLoan); // Log original loan data
 
-    let newAmount = parseFloat(editFormData.amount) || 0; // Direct conversion
+    const newAmount = parseFloat(editFormData.amount) || 0; // Direct conversion
     console.log("New amount entered:", newAmount); // Log new amount entered
 
-    let currentBorrowed = parseFloat(updatedLoan.currentBorrowed.replace("R$", "").trim()) || 0;
+    const currentBorrowed = parseFloat(updatedLoan.currentBorrowed.replace("R$", "").trim()) || 0;
     console.log("Current borrowed before update:", currentBorrowed);
 
     updatedLoan.currentBorrowed = `R$ ${(currentBorrowed + newAmount).toFixed(2)}`;
