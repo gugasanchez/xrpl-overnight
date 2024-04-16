@@ -62,7 +62,8 @@ const MyBarChart = ({ data }) => {
 };
 
 const MultiLineTrendChart = ({ data }) => {
-  if (!data || data.length === 0) return <p>No data available</p>;
+  if (!data || !Array.isArray(data) || data.length === 0) return <p>No data available</p>;
+
   const transformedData = data.reduce((acc, { name, value, date }) => {
     if (name && value && date) {
       const existingEntry = acc.find(entry => entry.date === date);
@@ -109,7 +110,7 @@ const transformData = data => {
 };
 
 const StackedAreaChart = ({ data }) => {
-  if (!data || data.length === 0) return <p>No data available</p>;
+  if (!data || !Array.isArray(data) || data.length === 0) return <p>No data available</p>;
   const transformedData = transformData(data);
   const uniqueNames = [...new Set(data.map(item => item.name))];
 

@@ -1,6 +1,6 @@
 // pages/api/proxy.js
 export default async function handler(req, res) {
-  const apiUrl = "https://xrpl-api.vercel.app/overnight";
+  const apiUrl = "https://overnight-api.vercel.app/overnight";
 
   try {
     const apiResponse = await fetch(apiUrl);
